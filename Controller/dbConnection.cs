@@ -12,7 +12,7 @@ namespace hotel_nn
     {
 
         public static string db_name = "ritmo_software";
-        public static string server_name = @"localhost\SQLEXPRESS01";
+        public static string server_name = @"(local)";
         public SqlConnection conexString = new SqlConnection($"Server={server_name};Database={db_name};Trusted_connection=True");
         // Aquí se inicializa la cadena de conexión que se irá pasando de formulario en formulario.
         public dbConnection() 
