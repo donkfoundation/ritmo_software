@@ -49,7 +49,7 @@ namespace hotel_nn
 
             lv_Preview_Reservas.Items.Clear();
 
-            cmd = new SqlCommand("select * from Reservas", conex);
+            cmd = new SqlCommand("select cod_reserva, fecha_inicio, fecha_fin, num_doc, tipo_pago, pago_anti, cantidad_huespedes from Reservas", conex);
             da = new SqlDataAdapter(cmd);
             ds = new DataSet();
             da.Fill(ds, "Test Table");

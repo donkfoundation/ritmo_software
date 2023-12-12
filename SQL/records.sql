@@ -9,6 +9,12 @@ VALUES
     (86, 'CHINA'),
 	(38, 'YUGOSLAVIA');
 
+INSERT INTO Dpto (nom_dpto, cod_pais)
+VALUES ('ANTIOQUIA', 57);
+
+INSERT INTO Ciudad (nom_ciudad, cod_dpto)
+VALUES ('MEDELLIN', 1);
+
 INSERT INTO DescripHabitacion ( tipo_hab, descripcion)
 VALUES
     ( 'INDIVIDUAL', 'UNA CAMA SIMPLE, TELEVISOR, MESA'),
@@ -29,20 +35,6 @@ VALUES
 	(3, 'STAFF'),
 	(4, 'RECEPCIONISTA');
 GO
-
-INSERT INTO Usuarios (tipo_doc, num_doc, apellidos, nombres, fecha_nac, fecha_exp, lug_nacimiento, genero, direccion, correo, telefono, cargo)
-VALUES
-    ('C.C', 12345678, 'PEREZ', 'PEPITO', CONVERT(datetime, '01/01/1990', 101), CONVERT(datetime, '01/01/2000', 101), 'CIUDAD1', 'MASCULINO', 'DIRECCION1', 'CORREO1@EXAMPLE.COM', 123456789, 1)
-
-INSERT INTO Ingreso (num_documento, contrasena) VALUES (12345678, 'd48b165d1e5a63b56c7601e4269642e6a71fa90b2178a0212a1da5f7ee54255f');
-
-INSERT INTO Clientes (tipo_doc, num_doc, apellidos, nombres, genero, pais_residencia, direccion, telefono, correo)
-VALUES
-    ('C.C', 123456789, 'GOMEZ', 'ANA', 'FEMENINO', 57, 'CALLE 123', 987654321, 'ANA@EXAMPLE.COM'),
-    ('PASAPORTE', 987654321, 'SMITH', 'JOHN', 'MASCULINO', 1, '123 MAIN ST', 123456789, 'JOHN@EXAMPLE.COM'),
-    ('PASAPORTE', 112233445, 'FERNANDEZ', 'MARIA', 'FEMENINO', 34, 'CALLE PRINCIPAL', 555666777, 'MARIA@EXAMPLE.COM'),
-    ('PASAPORTE', 555666777, 'WANG', 'LI', 'FEMENINO', 86, 'ZHONGGUANCUN STREET', 999888777, 'LI@EXAMPLE.COM'),
-	('C.C', 111111111, 'DOE', 'JOHN', 'MASCULINO', 57, 'CALLE A CON A', 111222444, 'JOHNDOE@GMAIL.COM')
 
 INSERT INTO Paquetes (nombre_paquete, activo, descripcion, precio_costo, iva, precio_total)
 VALUES

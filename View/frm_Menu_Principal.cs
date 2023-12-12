@@ -82,13 +82,45 @@ namespace hotel_nn
             // Aquí se cargará el dinero que se ha hecho cada semana.
             connection.openConnection();
 
+            string cadenacuenta = "DECLARE @FechaCorte DATETIME = GETDATE(); DECLARE @DiaSemanaCorte INT = DATEPART(WEEKDAY, @FechaCorte); DECLARE @ProximoDomingo DATETIME = DATEADD(DAY, 1 + (7 - @DiaSemanaCorte), @FechaCorte); DECLARE @DomingoAnterior DATETIME = DATEADD(DAY, -@DiaSemanaCorte, @FechaCorte); SELECT SUM(costo)  AS 'Ventas' FROM Cuenta Where Cuenta.fecha_compra <= @ProximoDomingo AND Cuenta.fecha_compra > @DomingoAnterior;";
+            SqlCommand cmd2 = new SqlCommand(cadenacuenta, conex);
+            SqlDataReader reader2 = cmd2.ExecuteReader();
+            int cuentas;
+            if (reader2.Read())
+            {
+                try
+                {
+                    cuentas = int.Parse(reader2["ventas"].ToString());
+                }
+                catch (FormatException)
+                {
+                    cuentas = 0;
+                }
+            }
+            else
+                cuentas = 0;
+            reader2.Close();
+
             string cadena = "DECLARE @FechaCorte DATETIME = GETDATE(); DECLARE @DiaSemanaCorte INT = DATEPART(WEEKDAY, @FechaCorte); DECLARE @ProximoDomingo DATETIME = DATEADD(DAY, 1 + (7 - @DiaSemanaCorte), @FechaCorte); DECLARE @DomingoAnterior DATETIME = DATEADD(DAY, -@DiaSemanaCorte, @FechaCorte); SELECT SUM(total) + sum(pago_anti) AS 'Ventas' FROM Factura inner join Reservas on Factura.cod_reserva = Reservas.cod_reserva WHERE Factura.fecha_compra <= @ProximoDomingo AND Factura.fecha_compra > @DomingoAnterior;";
             SqlCommand cmd = new SqlCommand(cadena, conex);
-
             SqlDataReader reader = cmd.ExecuteReader();
+            int total_ventas;
             if (reader.Read())
-                lbl_Dinero_Semanal.Text = reader["ventas"].ToString() + " " + "COP";
+            {
+                try
+                {
+                    total_ventas = int.Parse(reader["ventas"].ToString());
+                }
+                catch (FormatException)
+                {
+                    total_ventas = 0;
+                }
+            }
+            else
+                total_ventas = 0;
+            reader.Close();
 
+            lbl_Dinero_Semanal.Text = $"{cuentas + total_ventas} $";
             connection.closeConnection();
         }
 
@@ -398,7 +430,7 @@ namespace hotel_nn
             if (validarPermiso(cadena))
             {
                 connection.closeConnection();
-                frm_Reportes reportes = new frm_Reportes();
+                frm_GenerarReportes reportes = new frm_GenerarReportes();
                 reportes.ShowDialog();
             }
             else
@@ -431,7 +463,7 @@ namespace hotel_nn
             if (validarPermiso(cadena))
             {
                 connection.closeConnection();
-                frm_CuentasPorCobrar cuentas = new frm_CuentasPorCobrar();
+                frm_CuentasPorCobrar cuentas = new frm_CuentasPorCobrar(this);
                 cuentas.ShowDialog();
             }
             else
@@ -456,24 +488,6 @@ namespace hotel_nn
                 MessageBox.Show("No tienes los permisos para visitar este recurso");
             }
         }
-
-        private void verComoClienteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cadena = "modo_cliente";
-            if (validarPermiso(cadena))
-            {
-                connection.closeConnection();
-                frm_ModoCliente modo_cliente = new frm_ModoCliente();
-                modo_cliente.iniciarCliente();
-                modo_cliente.ShowDialog();
-            }
-            else
-            {
-                connection.closeConnection();
-                MessageBox.Show("No tienes los permisos para visitar este recurso");
-            }
-        }
-
 
         private void btn_Salir_Menu_Click(object sender, EventArgs e)
         {

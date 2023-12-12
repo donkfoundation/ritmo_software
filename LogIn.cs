@@ -74,8 +74,8 @@ namespace hotel_nn
                         menu.UserID = dr.GetValue(0).ToString();
                         menu.UserRol = dr.GetValue(1).ToString();
                         menu.UserDoc = dr.GetValue(2).ToString();
-                        menu.Show();
                         this.Hide();
+                        menu.Show();
                     }
                     else
                     {
@@ -101,6 +101,20 @@ namespace hotel_nn
         {
             this.Close();
             Application.Exit();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frm_CrearNuevoUsuario registro = new frm_CrearNuevoUsuario();
+            this.Hide();
+            registro.ShowDialog();
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frm_LogInClientes clientes = new frm_LogInClientes();
+            this.Hide();
+            clientes.ShowDialog();
         }
     }
 }

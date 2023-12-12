@@ -44,7 +44,6 @@ namespace hotel_nn
             cb_Reportes.Checked = false;
             cb_Factura.Checked = false;
             cb_Cuenta.Checked = false;
-            cb_ModoCliente.Checked = false;
         }
 
         private void cargarPermisos(SqlDataReader reader)
@@ -119,11 +118,6 @@ namespace hotel_nn
             if (Boolean.Parse(reader["cuenta"].ToString()))
             {
                 cb_Cuenta.Checked = true;
-            }
-
-            if (Boolean.Parse(reader["modo_cliente"].ToString()))
-            {
-                cb_ModoCliente.Checked = true;
             }
 
         }
@@ -228,8 +222,7 @@ namespace hotel_nn
                       clientes = @clientes,
                       reportes = @reportes,
                       factura = @factura,
-                      cuenta = @cuenta,
-                      modo_cliente = @modo_cliente  
+                      cuenta = @cuenta  
                       WHERE num_documento = @num_doc";
 
                 SqlCommand cmd = new SqlCommand(cadena, conex);
@@ -248,7 +241,6 @@ namespace hotel_nn
                 cmd.Parameters.AddWithValue("@reportes", cb_Reportes.Checked ? 1 : 0);
                 cmd.Parameters.AddWithValue("@factura", cb_Factura.Checked ? 1 : 0);
                 cmd.Parameters.AddWithValue("@cuenta", cb_Cuenta.Checked ? 1 : 0);
-                cmd.Parameters.AddWithValue("@modo_cliente", cb_ModoCliente.Checked ? 1 : 0);
                 cmd.Parameters.AddWithValue("@num_doc", txt_Documento.Text);
 
                 try

@@ -39,8 +39,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txt_Razon_Social = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txt_Estado_Proveedor = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.txt_Direccion_Proveedores = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txt_Telefono_Proveedores = new System.Windows.Forms.TextBox();
@@ -187,22 +185,6 @@
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 19;
             this.label2.Text = "Razón Social";
-            // 
-            // txt_Estado_Proveedor
-            // 
-            this.txt_Estado_Proveedor.Location = new System.Drawing.Point(368, 118);
-            this.txt_Estado_Proveedor.Name = "txt_Estado_Proveedor";
-            this.txt_Estado_Proveedor.Size = new System.Drawing.Size(49, 20);
-            this.txt_Estado_Proveedor.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(277, 121);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Estado";
             // 
             // txt_Direccion_Proveedores
             // 
@@ -401,8 +383,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txt_Razon_Social);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txt_Estado_Proveedor);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frm_Proveedores";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -426,8 +406,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_Razon_Social;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txt_Estado_Proveedor;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_Direccion_Proveedores;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_Telefono_Proveedores;

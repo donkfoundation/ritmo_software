@@ -1,6 +1,3 @@
-drop database ritmo_software;
-GO
-
 create database ritmo_software;
 GO
 
@@ -13,14 +10,14 @@ create table Pais(
 );
 
 create table Dpto(
-	cod_dpto int primary key,
+	cod_dpto int primary key identity,
     nom_dpto varchar(50),
     cod_pais int,
     foreign key (cod_pais) references Pais(cod_pais)
 );
 	
 create table Ciudad(
-	cod_ciudad int primary key,
+	cod_ciudad int primary key identity,
     nom_ciudad varchar(60),
     cod_dpto int,
     foreign key (cod_dpto) references Dpto(cod_dpto)
@@ -40,6 +37,7 @@ create table Habitaciones(
     precio int
 );
 
+
 create table Roles(
 	cod_rol int primary key,
     tipo_rol varchar(50),
@@ -58,7 +56,7 @@ create table Usuarios(
 	correo text,
 	telefono bigint,
 	cargo int,
-	foreign key (cargo) references Roles(cod_rol)
+	foreign key (cargo) references Roles(cod_rol),
 );
 
 create table Ingreso(
@@ -78,6 +76,12 @@ create table Clientes(
     direccion varchar(100),
 	telefono bigint,
 	correo varchar(50),
+);
+
+create table IngresoClientes (
+	num_documento int,
+	foreign key (num_documento) references Clientes(num_doc),
+	contrasena varchar(200)
 );
 
 create table Reservas(
@@ -109,19 +113,17 @@ create table Proveedores(
 	direccion text,
 	pais int,
 	foreign key (pais) references Pais(cod_pais),
-	telefono int,
+	telefono bigint,
 	correo text,
 	representante_legal varchar(150),
 	cedula_representante_legal int,
 	tipo_persona varchar(40),
-	estado char
 );
 
 create table Inventario(
     cod_prod int primary key identity,
 	descripcion varchar(100),
     cantidad int,
-    estado char,
 	nit_proveedor varchar(11),
 	foreign key (nit_proveedor) references Proveedores(nit_proveedor),
 	fecha_ingreso datetime,
@@ -171,7 +173,6 @@ create table Permisos (
 	reportes bit default 0,
 	factura bit default 0,
 	cuenta bit default 0,
-	modo_cliente bit default 0
 );
 GO
 
@@ -348,19 +349,29 @@ BEGIN
     SELECT
 		sum(f.iva),
 		sum(f.subtotal),
-		sum(f.total),
-		sum(c.costo)
-    FROM
-        Cuenta c, Reservas r
+		sum(f.total)
+    FROM 
+        Reservas r
         INNER JOIN Factura f ON r.cod_reserva = f.cod_reserva
     WHERE
         r.fecha_reserva >= @primerDiaMesActual
         AND r.fecha_reserva <= @ultimoDiaMesAnterior
-		AND c.fecha_compra >= @primerDiaMesActual
-		AND c.fecha_compra <= @ultimoDiaMesAnterior
 END;
 GO
 
+CREATE PROCEDURE ObtenerInventarioDisponibles
+AS
+BEGIN
+	SELECT 
+		descripcion,
+		cantidad,
+		estado,
+		nit_proveedor,
+		fecha_ingreso,
+		fecha_egreso
+	FROM Inventario WHERE estado = 'D'
+END;
+GO
 
 CREATE PROCEDURE ObtenerTotalCuentasUltimoMes
 AS

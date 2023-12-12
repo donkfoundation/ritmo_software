@@ -20,18 +20,19 @@ namespace hotel_nn
         public string userName;
         private int diasEstadia;
         private int cod_reserva;
+        private frm_Menu_Principal menu;
 
         public frm_ModoCliente()
         {
             InitializeComponent();
-             
         }
 
         public void iniciarCliente()
         {
             // Se inicializan los datos del cliente registrado.
             connection.openConnection();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM CLIENTES WHERE num_doc = 111111111", conex);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM CLIENTES WHERE num_doc = @num_doc", conex);
+            cmd.Parameters.AddWithValue("@num_doc", userId);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -207,7 +208,7 @@ namespace hotel_nn
         private void cb_TipoPago_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Si el tipo de pago es efectivo no habrá pago anticipado
-            if (cb_TipoPago.Text == "EFECTIVO")
+            if (cb_TipoPago.Text == "TARJETA DE CREDITO")
             {
                 checkb_PagoAnticipado.Checked = false;
                 checkb_PagoAnticipado.Enabled = false;
@@ -346,6 +347,7 @@ namespace hotel_nn
         private void btn_Salir_Click(object sender, EventArgs e)
         {
             this.Close();
+            new frm_LogInClientes().Show();
         }
     }
 }

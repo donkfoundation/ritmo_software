@@ -53,7 +53,6 @@
             this.btn_Limpiar = new System.Windows.Forms.Button();
             this.lbl_Rol_Usuario = new System.Windows.Forms.Label();
             this.lbl_PlaceHolder_Rol = new System.Windows.Forms.Label();
-            this.cb_ModoCliente = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txt_Documento
@@ -309,23 +308,12 @@
             this.lbl_PlaceHolder_Rol.TabIndex = 25;
             this.lbl_PlaceHolder_Rol.Text = "label3";
             // 
-            // cb_ModoCliente
-            // 
-            this.cb_ModoCliente.AutoSize = true;
-            this.cb_ModoCliente.Location = new System.Drawing.Point(35, 378);
-            this.cb_ModoCliente.Name = "cb_ModoCliente";
-            this.cb_ModoCliente.Size = new System.Drawing.Size(107, 17);
-            this.cb_ModoCliente.TabIndex = 26;
-            this.cb_ModoCliente.Text = "Ver Como Cliente";
-            this.cb_ModoCliente.UseVisualStyleBackColor = true;
-            // 
             // frm_Permisos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(514, 422);
-            this.Controls.Add(this.cb_ModoCliente);
             this.Controls.Add(this.lbl_PlaceHolder_Rol);
             this.Controls.Add(this.lbl_Rol_Usuario);
             this.Controls.Add(this.btn_Limpiar);
@@ -388,6 +376,5 @@
         private System.Windows.Forms.Button btn_Limpiar;
         private System.Windows.Forms.Label lbl_Rol_Usuario;
         private System.Windows.Forms.Label lbl_PlaceHolder_Rol;
-        private System.Windows.Forms.CheckBox cb_ModoCliente;
     }
 }

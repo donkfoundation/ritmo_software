@@ -36,7 +36,6 @@
             this.facturaDeVentaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paquetesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.verComoClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verClientesRegistradosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pROVEEDORESToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iNVENTARIOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,19 +140,11 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verComoClienteToolStripMenuItem,
             this.verClientesRegistradosToolStripMenuItem});
             this.toolStripMenuItem2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(69, 20);
             this.toolStripMenuItem2.Text = "CLIENTES";
-            // 
-            // verComoClienteToolStripMenuItem
-            // 
-            this.verComoClienteToolStripMenuItem.Name = "verComoClienteToolStripMenuItem";
-            this.verComoClienteToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.verComoClienteToolStripMenuItem.Text = "Ver como cliente";
-            this.verComoClienteToolStripMenuItem.Click += new System.EventHandler(this.verComoClienteToolStripMenuItem_Click);
             // 
             // verClientesRegistradosToolStripMenuItem
             // 
@@ -627,7 +618,6 @@
         private System.Windows.Forms.ToolStripMenuItem iNVENTARIOToolStripMenuItem;
         private System.Windows.Forms.Label btn_Salir_Menu;
         private System.Windows.Forms.ToolStripMenuItem asignaciónDeRolesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem verComoClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verClientesRegistradosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem permisosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cobrarServicioAdicionalToolStripMenuItem;

@@ -17,9 +17,11 @@ namespace hotel_nn.View
         SqlConnection conex = connection.conexString;
         SqlDataAdapter da;
         DataSet ds;
-        public frm_CuentasPorCobrar()
+        frm_Menu_Principal menu;
+        public frm_CuentasPorCobrar(frm_Menu_Principal menu)
         {
             InitializeComponent();
+            this.menu = menu;
         }
 
         private void clearItems()
@@ -96,7 +98,7 @@ namespace hotel_nn.View
             {
                 SqlCommand cmd = new SqlCommand("INSERT INTO Cuenta(num_doc, descripcion, costo, fecha_compra) VALUES(@num_doc, @descripcion, @costo, GETDATE())",conex);
                 cmd.Parameters.AddWithValue("@num_doc", txt_Doc.Text);
-                cmd.Parameters.AddWithValue("@descripcion", txt_Detalle.Text);
+                cmd.Parameters.AddWithValue("@descripcion", txt_Detalle.Text.ToUpper());
                 cmd.Parameters.AddWithValue("@costo", txt_Total.Text);
 
                 try
@@ -105,6 +107,7 @@ namespace hotel_nn.View
 
                     if (i > 0)
                         MessageBox.Show("Cuenta añadida");
+                    menu.LoadData();
                 }
                 catch (SqlException ex)
                 {
@@ -133,6 +136,7 @@ namespace hotel_nn.View
                         MessageBox.Show("Cuenta eliminada");
                     else
                         MessageBox.Show("Error");
+                    menu.LoadData();
                 }
                 catch(IndexOutOfRangeException) // Por si no hay nada seleccionado
                 {
@@ -167,6 +171,7 @@ namespace hotel_nn.View
 
                     if (i > 0)
                         MessageBox.Show("Cuenta editada");
+                    menu.LoadData();
                 }
                 catch (IndexOutOfRangeException) // Por si no hay nada seleccionado
                 {

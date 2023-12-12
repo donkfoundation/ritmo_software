@@ -32,8 +32,6 @@
             this.txt_Descripcion_Inventario = new System.Windows.Forms.TextBox();
             this.txt_Cantidad_Inventario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txt_Estado_Inventario = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -80,22 +78,6 @@
             this.label2.Size = new System.Drawing.Size(49, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Cantidad";
-            // 
-            // txt_Estado_Inventario
-            // 
-            this.txt_Estado_Inventario.Location = new System.Drawing.Point(93, 106);
-            this.txt_Estado_Inventario.Name = "txt_Estado_Inventario";
-            this.txt_Estado_Inventario.Size = new System.Drawing.Size(100, 20);
-            this.txt_Estado_Inventario.TabIndex = 7;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 109);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Estado";
             // 
             // label4
             // 
@@ -239,6 +221,7 @@
             // 
             // cb_Nit_Inventario
             // 
+            this.cb_Nit_Inventario.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_Nit_Inventario.FormattingEnabled = true;
             this.cb_Nit_Inventario.Location = new System.Drawing.Point(345, 26);
             this.cb_Nit_Inventario.Name = "cb_Nit_Inventario";
@@ -273,8 +256,6 @@
             this.Controls.Add(this.lv_Items_Inventario);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txt_Estado_Inventario);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txt_Cantidad_Inventario);
             this.Controls.Add(this.label2);
@@ -296,8 +277,6 @@
         private System.Windows.Forms.TextBox txt_Descripcion_Inventario;
         private System.Windows.Forms.TextBox txt_Cantidad_Inventario;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txt_Estado_Inventario;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;

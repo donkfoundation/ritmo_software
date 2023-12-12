@@ -49,7 +49,6 @@ namespace hotel_nn
             // Para limpiar los cuadros de texto 
             txt_Cantidad_Inventario.Clear();
             txt_Descripcion_Inventario.Clear();
-            txt_Estado_Inventario.Clear();
             cb_Nit_Inventario.SelectedIndex = 0;
         }
 
@@ -62,7 +61,6 @@ namespace hotel_nn
             lv_Items_Inventario.Columns.Add("Código");
             lv_Items_Inventario.Columns.Add("Descripción");
             lv_Items_Inventario.Columns.Add("Cantidad");
-            lv_Items_Inventario.Columns.Add("Estado");
             lv_Items_Inventario.Columns.Add("NIT Proveedor");
             lv_Items_Inventario.Columns.Add("Fecha Ingreso");
             lv_Items_Inventario.Columns.Add("Fecha Egreso");
@@ -87,7 +85,6 @@ namespace hotel_nn
                 lv_Items_Inventario.Items[i].SubItems.Add(dt.Rows[i].ItemArray[3].ToString());
                 lv_Items_Inventario.Items[i].SubItems.Add(dt.Rows[i].ItemArray[4].ToString());
                 lv_Items_Inventario.Items[i].SubItems.Add(dt.Rows[i].ItemArray[5].ToString());
-                lv_Items_Inventario.Items[i].SubItems.Add(dt.Rows[i].ItemArray[6].ToString());
             }
 
             ClearItems();
@@ -111,7 +108,7 @@ namespace hotel_nn
                 string cadena = "SELECT razon_social FROM Proveedores WHERE nit_proveedor=@nit_proveedor";
 
                 SqlCommand cmd = new SqlCommand(cadena, conex);
-                cmd.Parameters.AddWithValue("@nit_proveedor", lv_Items_Inventario.SelectedItems[0].SubItems[4].Text);
+                cmd.Parameters.AddWithValue("@nit_proveedor", lv_Items_Inventario.SelectedItems[0].SubItems[3].Text);
 
                 string nom_proveedor;
 
@@ -124,10 +121,9 @@ namespace hotel_nn
 
                 txt_Descripcion_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[1].Text;
                 txt_Cantidad_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[2].Text;
-                txt_Estado_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[3].Text;
                 cb_Nit_Inventario.Text = nom_proveedor;
-                dtp_FechaIngreso_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[5].Text;
-                dtp_FechaEgreso_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[6].Text;
+                dtp_FechaIngreso_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[4].Text;
+                dtp_FechaEgreso_Inventario.Text = lv_Items_Inventario.SelectedItems[0].SubItems[5].Text;
             }
             catch (Exception)
             {
@@ -141,21 +137,20 @@ namespace hotel_nn
         {
             // Se agrega un item a la tabla inventario
             connection.openConnection();
-            if (string.IsNullOrEmpty(txt_Cantidad_Inventario.Text) || string.IsNullOrEmpty(txt_Descripcion_Inventario.Text) || string.IsNullOrEmpty(txt_Estado_Inventario.Text) || cb_Nit_Inventario.SelectedIndex == 0 || !dtp_FechaIngreso_Inventario.Checked)
+            if (string.IsNullOrEmpty(txt_Cantidad_Inventario.Text) || string.IsNullOrEmpty(txt_Descripcion_Inventario.Text) ||  cb_Nit_Inventario.SelectedIndex == 0 || !dtp_FechaIngreso_Inventario.Checked)
                 MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 // Se verifica si el item tiene fecha de expiración y se modifica la cadena de consulta
                 string cadena;
                 if (checkB_FechaVen.Checked)
-                    cadena = $"Insert into Inventario(descripcion, cantidad, estado, nit_proveedor, fecha_ingreso, fecha_egreso) values(@descripcion, @cantidad, @estado, @nit_proveedor, @fecha_ingreso, @fecha_egreso)";
+                    cadena = $"Insert into Inventario(descripcion, cantidad, nit_proveedor, fecha_ingreso, fecha_egreso) values(@descripcion, @cantidad, @nit_proveedor, @fecha_ingreso, @fecha_egreso)";
                 else
-                    cadena = $"Insert into Inventario(descripcion, cantidad, estado, nit_proveedor, fecha_ingreso) values(@descripcion, @cantidad, @estado, @nit_proveedor, @fecha_ingreso)";
+                    cadena = $"Insert into Inventario(descripcion, cantidad, nit_proveedor, fecha_ingreso) values(@descripcion, @cantidad, @nit_proveedor, @fecha_ingreso)";
 
                 SqlCommand cmd = new SqlCommand(cadena, conex);
                 cmd.Parameters.AddWithValue("@descripcion", txt_Descripcion_Inventario.Text.ToUpper());
                 cmd.Parameters.AddWithValue("@cantidad", txt_Cantidad_Inventario.Text);
-                cmd.Parameters.AddWithValue("@estado", txt_Estado_Inventario.Text.ToUpper());
                 cmd.Parameters.AddWithValue("@nit_proveedor", cb_Nit_Inventario.SelectedValue);
                 cmd.Parameters.AddWithValue("@fecha_ingreso", dtp_FechaIngreso_Inventario.Text);
 
@@ -213,20 +208,19 @@ namespace hotel_nn
         {
             // Se actualiza el item con los datos nuevos registrados
             connection.openConnection();
-            if (string.IsNullOrEmpty(txt_Cantidad_Inventario.Text) || string.IsNullOrEmpty(txt_Descripcion_Inventario.Text) || string.IsNullOrEmpty(txt_Estado_Inventario.Text) || cb_Nit_Inventario.SelectedIndex == 0 || !dtp_FechaIngreso_Inventario.Checked)
+            if (string.IsNullOrEmpty(txt_Cantidad_Inventario.Text) || string.IsNullOrEmpty(txt_Descripcion_Inventario.Text) || cb_Nit_Inventario.SelectedIndex == 0 || !dtp_FechaIngreso_Inventario.Checked)
                 MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 string cadena;
                 if (checkB_FechaVen.Checked)
-                    cadena = "UPDATE Inventario SET descripcion=@descripcion, cantidad=@cantidad, estado=@estado, nit_proveedor=@nit_proveedor, fecha_ingreso=@fecha_ingreso, fecha_egreso=@fecha_egreso WHERE cod_prod=@cod_prod";
+                    cadena = "UPDATE Inventario SET descripcion=@descripcion, cantidad=@cantidad, nit_proveedor=@nit_proveedor, fecha_ingreso=@fecha_ingreso, fecha_egreso=@fecha_egreso WHERE cod_prod=@cod_prod";
                 else
-                    cadena = "UPDATE Inventario SET descripcion=@descripcion, cantidad=@cantidad, estado=@estado, nit_proveedor=@nit_proveedor, fecha_ingreso=@fecha_ingreso, fecha_egreso=NULL WHERE cod_prod=@cod_prod";
+                    cadena = "UPDATE Inventario SET descripcion=@descripcion, cantidad=@cantidad, nit_proveedor=@nit_proveedor, fecha_ingreso=@fecha_ingreso, fecha_egreso=NULL WHERE cod_prod=@cod_prod";
 
                 SqlCommand cmd = new SqlCommand(cadena, conex);
                 cmd.Parameters.AddWithValue("@descripcion", txt_Descripcion_Inventario.Text.ToUpper());
                 cmd.Parameters.AddWithValue("@cantidad", txt_Cantidad_Inventario.Text);
-                cmd.Parameters.AddWithValue("@estado", txt_Estado_Inventario.Text.ToUpper());
                 cmd.Parameters.AddWithValue("@nit_proveedor", cb_Nit_Inventario.SelectedValue);
                 cmd.Parameters.AddWithValue("@fecha_ingreso", dtp_FechaIngreso_Inventario.Value);
                 cmd.Parameters.AddWithValue("@cod_prod", lv_Items_Inventario.SelectedItems[0].Text);

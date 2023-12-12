@@ -32,7 +32,6 @@ namespace hotel_nn
             txt_Actividad_Proveedores.Clear();
             txt_Correo_Proveedores.Clear();
             txt_Direccion_Proveedores.Clear();
-            txt_Estado_Proveedor.Clear();
             txt_Nit_Proveedor.Clear();
             txt_Dv_Proveedores.Clear();
             txt_Razon_Social.Clear();
@@ -61,7 +60,6 @@ namespace hotel_nn
             lv_Proveedores.Columns.Add("Representante Legal");
             lv_Proveedores.Columns.Add("Cédula Representante legal");
             lv_Proveedores.Columns.Add("Tipo Persona");
-            lv_Proveedores.Columns.Add("Estado");
 
             foreach (ColumnHeader column in lv_Proveedores.Columns)
             {
@@ -87,7 +85,6 @@ namespace hotel_nn
                 lv_Proveedores.Items[i].SubItems.Add(dt.Rows[i].ItemArray[7].ToString());
                 lv_Proveedores.Items[i].SubItems.Add(dt.Rows[i].ItemArray[8].ToString());
                 lv_Proveedores.Items[i].SubItems.Add(dt.Rows[i].ItemArray[9].ToString());
-                lv_Proveedores.Items[i].SubItems.Add(dt.Rows[i].ItemArray[10].ToString());
 
             }
             
@@ -156,7 +153,6 @@ namespace hotel_nn
                     radioButton2.Checked = true;
                 else
                     radioButton1.Checked = true;
-                txt_Estado_Proveedor.Text = lv_Proveedores.SelectedItems[0].SubItems[10].Text;
             }
             catch (Exception ex)
             { }
@@ -168,7 +164,7 @@ namespace hotel_nn
         {
             // Se agrega el proveedor
             connection.openConnection();
-            if (string.IsNullOrEmpty(txt_Actividad_Proveedores.Text) || string.IsNullOrEmpty(txt_CCRepr_Proveedores.Text) || string.IsNullOrEmpty(txt_Correo_Proveedores.Text) || string.IsNullOrEmpty(txt_Direccion_Proveedores.Text) || string.IsNullOrEmpty(txt_Dv_Proveedores.Text) || string.IsNullOrEmpty(txt_Estado_Proveedor.Text) || string.IsNullOrEmpty(txt_Nit_Proveedor.Text) || string.IsNullOrEmpty(txt_Razon_Social.Text) || string.IsNullOrEmpty(txt_Representante_Proveedores.Text) || string.IsNullOrEmpty(txt_Telefono_Proveedores.Text) || (!radioButton1.Checked && !radioButton2.Checked) || cb_Pais_Proveedores.SelectedIndex == 0)
+            if (string.IsNullOrEmpty(txt_Actividad_Proveedores.Text) || string.IsNullOrEmpty(txt_CCRepr_Proveedores.Text) || string.IsNullOrEmpty(txt_Correo_Proveedores.Text) || string.IsNullOrEmpty(txt_Direccion_Proveedores.Text) || string.IsNullOrEmpty(txt_Dv_Proveedores.Text)  || string.IsNullOrEmpty(txt_Nit_Proveedor.Text) || string.IsNullOrEmpty(txt_Razon_Social.Text) || string.IsNullOrEmpty(txt_Representante_Proveedores.Text) || string.IsNullOrEmpty(txt_Telefono_Proveedores.Text) || (!radioButton1.Checked && !radioButton2.Checked) || cb_Pais_Proveedores.SelectedIndex == 0)
                 MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
@@ -182,7 +178,7 @@ namespace hotel_nn
                     // Se selecciona el tipo de persona según el radio button seleccionado
                     string tp = radioButton1.Checked ? radioButton1.Text.ToUpper() : radioButton2.Text.ToUpper();
 
-                    string cadena = $"INSERT INTO Proveedores(nit_proveedor, razon_social, actividad, direccion, pais, telefono, correo, representante_legal, cedula_representante_legal, tipo_persona, estado) VALUES(@nit_proveedor, @razon_social, @actividad, @direccion, @pais, @telefono, @correo, @representante_legal, @cedula_representante_legal, @tipo_persona, @estado)";
+                    string cadena = $"INSERT INTO Proveedores(nit_proveedor, razon_social, actividad, direccion, pais, telefono, correo, representante_legal, cedula_representante_legal, tipo_persona) VALUES(@nit_proveedor, @razon_social, @actividad, @direccion, @pais, @telefono, @correo, @representante_legal, @cedula_representante_legal, @tipo_persona)";
 
                     SqlCommand cmd = new SqlCommand(cadena, conex);
 
@@ -196,7 +192,6 @@ namespace hotel_nn
                     cmd.Parameters.AddWithValue("@representante_legal", txt_Representante_Proveedores.Text.ToUpper());
                     cmd.Parameters.AddWithValue("@cedula_representante_legal", txt_CCRepr_Proveedores.Text);
                     cmd.Parameters.AddWithValue("@tipo_persona", tp);
-                    cmd.Parameters.AddWithValue("@estado", txt_Estado_Proveedor.Text.ToUpper());
 
                     try
                     {
@@ -257,7 +252,7 @@ namespace hotel_nn
         {
             // Se actualiza el proveedor con los datos nuevos registrados
             connection.openConnection();
-            if (string.IsNullOrEmpty(txt_Actividad_Proveedores.Text) || string.IsNullOrEmpty(txt_CCRepr_Proveedores.Text) || string.IsNullOrEmpty(txt_Correo_Proveedores.Text) || string.IsNullOrEmpty(txt_Direccion_Proveedores.Text) || string.IsNullOrEmpty(txt_Dv_Proveedores.Text) || string.IsNullOrEmpty(txt_Estado_Proveedor.Text) || string.IsNullOrEmpty(txt_Nit_Proveedor.Text) || string.IsNullOrEmpty(txt_Razon_Social.Text) || string.IsNullOrEmpty(txt_Representante_Proveedores.Text) || string.IsNullOrEmpty(txt_Telefono_Proveedores.Text) || (!radioButton1.Checked && !radioButton2.Checked) || cb_Pais_Proveedores.SelectedIndex == 0)
+            if (string.IsNullOrEmpty(txt_Actividad_Proveedores.Text) || string.IsNullOrEmpty(txt_CCRepr_Proveedores.Text) || string.IsNullOrEmpty(txt_Correo_Proveedores.Text) || string.IsNullOrEmpty(txt_Direccion_Proveedores.Text) || string.IsNullOrEmpty(txt_Dv_Proveedores.Text) || string.IsNullOrEmpty(txt_Nit_Proveedor.Text) || string.IsNullOrEmpty(txt_Razon_Social.Text) || string.IsNullOrEmpty(txt_Representante_Proveedores.Text) || string.IsNullOrEmpty(txt_Telefono_Proveedores.Text) || (!radioButton1.Checked && !radioButton2.Checked) || cb_Pais_Proveedores.SelectedIndex == 0)
                 MessageBox.Show("Por favor, complete todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
@@ -270,11 +265,19 @@ namespace hotel_nn
                     // Se selecciona el tipo de persona según el radio button seleccionado
                     string tp = radioButton1.Checked ? radioButton1.Text.ToUpper() : radioButton2.Text.ToUpper();
 
-                    string cadena = $"UPDATE Proveedores SET razon_social='{txt_Razon_Social.Text.ToUpper()}', actividad='{txt_Actividad_Proveedores.Text.ToUpper()}', direccion='{txt_Direccion_Proveedores.Text.ToUpper()}', pais=@pais, telefono={txt_Telefono_Proveedores.Text}, correo='{txt_Correo_Proveedores.Text.ToUpper()}', representante_legal='{txt_Representante_Proveedores.Text.ToUpper()}', cedula_representante_legal={txt_CCRepr_Proveedores.Text}, tipo_persona='{tp}', estado='{txt_Estado_Proveedor.Text.ToUpper()}' WHERE nit_proveedor=@nit_proveedor";
+                    string cadena = $"UPDATE Proveedores SET razon_social=@razon_social, actividad=@actividad, direccion=@direccion, pais=@pais, telefono=@tlefono, correo=@correo, representante_legal=@representante_legal, cedula_representante_legal=cedula_representante_legal, tipo_persona=@tipo_persona WHERE nit_proveedor=@nit_proveedor";
 
                     SqlCommand cmd = new SqlCommand(cadena, conex);
-                    cmd.Parameters.AddWithValue("@pais", cb_Pais_Proveedores.SelectedValue);
                     cmd.Parameters.AddWithValue("@nit_proveedor", $"{txt_Nit_Proveedor.Text}-{txt_Dv_Proveedores.Text}");
+                    cmd.Parameters.AddWithValue("@razon_social", txt_Razon_Social.Text.ToUpper());
+                    cmd.Parameters.AddWithValue("@actividad", txt_Actividad_Proveedores.Text.ToUpper());
+                    cmd.Parameters.AddWithValue("@direccion", txt_Direccion_Proveedores.Text.ToUpper());
+                    cmd.Parameters.AddWithValue("@pais", cb_Pais_Proveedores.SelectedValue);
+                    cmd.Parameters.AddWithValue("@telefono", txt_Telefono_Proveedores.Text);
+                    cmd.Parameters.AddWithValue("@correo", txt_Correo_Proveedores.Text.ToUpper());
+                    cmd.Parameters.AddWithValue("@representante_legal", txt_Representante_Proveedores.Text.ToUpper());
+                    cmd.Parameters.AddWithValue("@cedula_representante_legal", txt_CCRepr_Proveedores.Text);
+                    cmd.Parameters.AddWithValue("@tipo_persona", tp);
 
                     try
                     {

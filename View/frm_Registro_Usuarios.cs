@@ -284,7 +284,7 @@ namespace hotel_nn
         {
             // Se elimina el usuario seleccionado.
             connection.openConnection();
-            string deleteUsuarioQuery = "DELETE FROM Usuarios WHERE num_doc=@num_doc";
+            string deleteUsuarioQuery = "DELETE FROM Permisos WHERE num_documento = @num_doc; DELETE FROM Ingreso WHERE num_documento = @num_doc ;DELETE FROM Usuarios WHERE num_doc=@num_doc";
             SqlCommand cmd = new SqlCommand(deleteUsuarioQuery, conex);
             cmd.Parameters.AddWithValue("@num_doc", txtDocumento_Usuarios.Text);
 
